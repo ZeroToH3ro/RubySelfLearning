@@ -43,7 +43,7 @@ class Shelter
         #use array instead of hash
         @owners = []; 
     end
-    
+
     def isAdoptAnimal(owner, pet)
         @owners << owner unless @owner.include? owner;
         owner.addNewPet(pet);
@@ -51,8 +51,8 @@ class Shelter
 
     def printAdoption
         owners.each do |owner|
-            puts "#{owner.name} has adopted the following pets:";
-            owner.printPets;
+        puts "#{owner.name} has adopted the following pets:";
+        owner.printPets;
         end    
     end
 
