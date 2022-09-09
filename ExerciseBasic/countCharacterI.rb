@@ -11,6 +11,9 @@ end
 puts count_character_i("python");
 puts count_character_i("digital");
 puts count_character_i("okie");
+puts count_character_i("diiiii");
+puts count_character_i("none");
+puts count_character_i("okela");
 
 
   
