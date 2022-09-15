@@ -8,5 +8,6 @@ module Tools
     end
 end
 
-include Tools
+include Tool
+#just as if we’d copied and pasted these methods over to the class definition.
 Tools.sayhi("Minh");

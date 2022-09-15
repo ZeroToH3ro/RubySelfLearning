@@ -11,7 +11,8 @@ end
 class Dragon < Creature
     def fight 
         return "Breathes fire!";
-    super end
+        super; 
+    end
 end 
 
 creature = Creature.new("Dragon");

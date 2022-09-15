@@ -3,7 +3,7 @@ def convert_array_string (array_string)
 end
 
 def convert_array_number (array_number)
-  array_number_split = array_number.split(",").map {|item| item.to_i}; 
+  array_number_split = array_number.split(",").map {|item| item.to_i};
 end
 
 print convert_array_string("Minh, Anh, Fats"), "\n";
