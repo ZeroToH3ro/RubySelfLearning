@@ -40,7 +40,6 @@ conn = PG.connect(
   password: "minh21052002"
 )
 
-puts "Connect successful";
 file_name = "/home/zero/CodeRuby/HomeWorkBestarion/data.csv";
 
 sql = "Copy Profile(name, email, phone, address, birthday, information) FROM \'#{file_name}\' DELIMITER ',' HEADER CSV;"
@@ -49,5 +48,5 @@ conn.exec(sql);
 
 puts endProgram = Time.now - start;
 
-#Time: 1,4903.
+#Time: 1,02195.
 
