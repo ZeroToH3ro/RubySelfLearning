@@ -1,20 +1,12 @@
-require 'benchmark'
 require 'csv'
+require 'pg'
 
-def print_time_spent
-  time = Benchmark.realtime do
-    yield;
-  end
-  puts "Time: #{time.round(2)}";
-end
-    
 def create_name (id)
-  return "Nguyen Van A #{id}"
+  "Nguyen Van A #{id}"
 end
 
 def create_email (id)
-  name = create_name(id).gsub(/\s+/, "");
-  return name + "@gmail.com"; 
+  create_name(id).gsub(/\s+/, "") + "@gmail.com";
 end
 
 def create_phone_number_random
@@ -23,26 +15,39 @@ def create_phone_number_random
 end
 
 def create_address
-  address = ["HCM City","HN Capital","DaNang City", "American Tho"];
-  return address[rand(address.length)];
+  address = ["HCM City","HN Capital","DaNang City", "American Tho"].sample;
 end
 
 def create_birthday
   rand(Date.civil(1990,1,31)..Date.civil(2010,1,31)).to_s.gsub("-","/");
 end
-
 headers = ['Name', 'Email', 'Phone', 'Address', 'Day_of_birth', 'Profile']
-profile = '"Like TV 100", Some special charactor: \ / \' $ ~ & @ # ( ; """';
+profile = 'Like TV 100", Some special charactor: \ / \' $ ~ & @ # ( ; ""';
 
-print_time_spent do
-    CSV.open('data.csv', 'w', write_headers: true, headers: headers) do |csv|
-      500_000.times do |i|
-        csv << [create_name(i), create_email(i), create_phone_number_random,
-                create_address, create_birthday, profile];
-      end
+CSV.open('data.csv', 'w+', write_headers: true, headers: headers) do |csv|
+    500_000.times do |i|
+    csv << [create_name(i), create_email(i), create_phone_number_random,
+            create_address, create_birthday, profile];
     end
 end
 
+start = Time.now;
 
+conn = PG.connect(
+  dbname: "postgres",
+  port: 5432,
+  user: "postgres",
+  password: "minh21052002"
+)
 
+puts "Connect successful";
+file_name = "/home/zero/CodeRuby/HomeWorkBestarion/data.csv";
+
+sql = "Copy Profile(name, email, phone, address, birthday, information) FROM \'#{file_name}\' DELIMITER ',' HEADER CSV;"
+
+conn.exec(sql);
+
+puts endProgram = Time.now - start;
+
+#Time: 1,4903.
 
